@@ -10,6 +10,7 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -53,6 +54,11 @@ public class TestTemplateProcessor implements DataSourceType{
 
 	@Before
 	public void setUp() throws Exception {
+		/*
+		 *要求使用EasyMock和PowerMock框架完成对被测类TemplateProcessor中的方法staticVarExtract()中的
+		 *依赖类DataSourceConfig进行模拟，使得testStaticVarExtract()的测试成功通过。
+        */
+
 
 		//以下采用Mock对象的方式，做测试前的准备。
 		//与以上方法比较，好处是降低SUT（TemplateProcessor类）与DOC（DataSourceConfig类）之间的耦合性，解耦它们。
@@ -65,8 +71,16 @@ public class TestTemplateProcessor implements DataSourceType{
         //------------------------------------------------
         //以上流程请在这里实现：
         //
-        //
-        // 这里写代码
+		//EasyMock录制
+        ConstDataSource source=new ConstDataSource();
+		DataSourceConfig dsc = EasyMock.createMock(DataSourceConfig.class);
+		TemplateProcessor professor=new TemplateProcessor();
+		EasyMock.expect(dsc.getConstDataSource()).andReturn( source);
+		EasyMock.expect(dsc.getConstDataSource()).andStubReturn(null);
+
+		//静态方法录制
+		PowerMock.mockStatic(DataSourceConfig.class);
+        EasyMock.expect(DataSourceConfig.newInstance()).andReturn(dsc);
         //
         //------------------------------------------------
 		//5. 重放所有的行为。
