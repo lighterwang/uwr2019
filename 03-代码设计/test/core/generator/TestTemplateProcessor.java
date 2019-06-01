@@ -19,9 +19,6 @@ import static org.junit.Assert.assertNotNull;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(DataSourceConfig.class)
 @PowerMockIgnore("javax.management.*")
-/**
-@author Roy Wang
-*/
 public class TestTemplateProcessor implements DataSourceType{
 	//待测试类(SUT)的一个实例。
 	private TemplateProcessor tp;
@@ -74,13 +71,8 @@ public class TestTemplateProcessor implements DataSourceType{
         //------------------------------------------------
         //以上流程请在这里实现：
         //
-<<<<<<< HEAD
 		//EasyMock录制
         ConstDataSource source=new ConstDataSource();
-=======
-		//EasyMock录制
-                ConstDataSource source=new ConstDataSource();
->>>>>>> da151ab44d08208cb227fe6e66629d51d83d4a1d
 		DataSourceConfig dsc = EasyMock.createMock(DataSourceConfig.class);
 		TemplateProcessor professor=new TemplateProcessor();
 		EasyMock.expect(dsc.getConstDataSource()).andReturn( source);
@@ -88,11 +80,7 @@ public class TestTemplateProcessor implements DataSourceType{
 
 		//静态方法录制
 		PowerMock.mockStatic(DataSourceConfig.class);
-<<<<<<< HEAD
         EasyMock.expect(DataSourceConfig.newInstance()).andReturn(dsc);
-=======
-                EasyMock.expect(DataSourceConfig.newInstance()).andReturn(dsc);
->>>>>>> da151ab44d08208cb227fe6e66629d51d83d4a1d
         //
         //------------------------------------------------
 		//5. 重放所有的行为。
